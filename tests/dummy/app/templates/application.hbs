@@ -1,0 +1,131 @@
+{{page-title "Dummy"}}
+
+<Form
+  @set={{fn this.setProperty this.data}}
+  @get={{fn this.getProperty this.data}}
+  @submit={{fn this.submit this.data}}
+  class="mx-8 space-y-4"
+as |processing error form|>
+
+  {{#if error}}
+    <Alert @title={{error.message}} />
+  {{/if}}
+
+  <form.property @name="username" as |property|>
+    <property.label>Username</property.label>
+    <property.input @value="username" />
+    <property.description></property.description>
+  </form.property>
+
+  <form.property @name="url" as |property|>
+    <property.label>Url</property.label>
+    <property.input />
+    <property.description>
+      Your homepage
+    </property.description>
+  </form.property>
+
+  <form.collection @name="parameters" @limit={{ 2 }} as |collection itemCount|>
+    <div>
+      <div>
+        {{!-- FIXME: I dont really like this as a pattern, however, this button is enabled/disabled based on the `limit` and `items` --}}
+        <collection.addButton>Add Item</collection.addButton>
+      </div>
+    </div>
+      
+    <collection.items as |item|>
+      <div class="flex items-end flex-1 space-x-2">
+        <item.property @name="key" as |property|>
+          <property.label>Key</property.label>
+          <property.input />
+        </item.property>
+
+        <item.property @name="value" as |property|>
+          <property.label>Value</property.label>
+          <property.input />
+        </item.property>
+
+        <div class="items-center justify-center w-5 mb-1">
+          <item.remove @component={{component "form/templates/button/icon"}} class="w-full text-gray-400 hover:text-red-800 hover:rotate-12">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+            </svg>
+          </item.remove>
+        </div>
+      </div>
+    </collection.items>
+  </form.collection>
+
+  <form.select @template="select/cards" @name="format" as |option|>
+    <option @value="small" as |option|>
+      <option.label>
+        Small
+      </option.label>
+      <option.description>
+        4 GB RAM / 2 CPUS / 80 GB SSD Storage
+      </option.description>
+    </option>
+    <option @value="medium" as |option|>
+      <option.label>
+        Medium
+      </option.label>
+      <option.description>
+        8 GB RAM / 4 CPUS / 160 GB SSD Storage
+      </option.description>
+    </option>
+    <option @value="large" as |option|>
+      <option.label>
+        Large
+      </option.label>
+      <option.description>
+        16 GB RAM / 8 CPUS / 320 GB SSD Storage
+      </option.description>
+    </option>
+  </form.select>
+
+  <div>
+    <div class="flex items-center justify-between">
+      <h2 class="text-sm font-medium text-gray-900">RAM</h2>
+    </div>
+
+    <fieldset class="mt-2">
+      <legend class="sr-only">Choose a memory option</legend>
+      <form.select @template="select/small-cards" @name="ram" as |option|>
+        <option @value="4" as |option|>
+          <option.label>
+            4 GB
+          </option.label>
+        </option>
+        <option @value="8" as |option|>
+          <option.label>
+            8 GB
+          </option.label>
+        </option>
+        <option @value="16" as |option|>
+          <option.label>
+            16 GB
+          </option.label>
+        </option>
+        <option @value="32" as |option|>
+          <option.label>
+            32 GB
+          </option.label>
+        </option>
+        <option @value="64" as |option|>
+          <option.label>
+            64 GB
+          </option.label>
+        </option>
+        <option @value="128" as |option|>
+          <option.label>
+            128 GB
+          </option.label>
+        </option>
+      </form.select>
+    </fieldset>
+  </div>
+
+  <form.button>
+    Create Profile
+  </form.button>
+</Form>

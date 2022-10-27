@@ -1,0 +1,48 @@
+{{#let (hash
+  property=(component
+    "form/property"
+    ref=this.ref
+    set=(fn this.set @set)
+    get=(fn this.get @get)
+    setDisabled=(fn this.setState "disabled" this.processing)
+  )
+  button=(component
+    "form/button"
+    type="submit"
+    disabled=(call (fn this.getState "disabled"))    
+  )
+  set=(fn this.set @set)
+  get=(fn this.get @get)
+) as |base|}}
+
+  <form {{on "submit" (fn this.submit @submit)}} ...attributes>
+    {{yield
+      this.states.disabled
+      this.error
+      (hash
+        button=base.button
+        collection=(component
+          "form/collection"
+          property=base.property
+          ref=this.ref
+          set=base.set
+          get=base.get
+          disabled=this.states.disabled
+          setDisabled=(fn this.setState "disabled" this.processing)
+        )
+        get=base.get
+        property=base.property
+        ref=this.ref
+        select=(component
+          "form/select"
+          ref=this.ref
+          set=base.set
+          get=base.get
+          disabled=this.states.disabled
+          setDisabled=(fn this.setState "disabled" this.processing)
+        )
+        set=base.set
+      )
+    }}
+  </form>
+{{/let}}

@@ -1,0 +1,12 @@
+<Form::Templates @name={{@type}} @component={{@component}} as |Button|>
+  <Button
+    {{on "click" (optional @onclick)}}
+    @disabled={{@disabled}}
+    type={{@type}}
+    disabled={{@disabled}}
+    aria-disabled={{@disabled}}
+    ...attributes
+  >
+    {{yield}}
+  </Button>
+</Form::Templates>

@@ -1,0 +1,25 @@
+<!--
+  Active: "ring-2 ring-offset-2 ring-indigo-500"
+-->
+<label
+  class={{concat
+    "flex items-center justify-center px-3 py-3 text-sm font-medium uppercase border rounded-md sm:flex-1 focus:outline-none "
+    (if @checked "bg-indigo-600 border-transparent text-white hover:bg-indigo-700 " "bg-white border-gray-200 text-gray-900 hover:bg-gray-50 ")
+    (if @disabled "opacity-25 cursor-not-allowed " "cursor-pointer " )
+  }}
+>
+  <input
+    {{on "input" @setEvent}}
+    aria-labelledby={{call (fn @ref "label")}}
+    checked={{@checked}}
+    class="sr-only"
+    disabled={{@disabled}}
+    name={{@name}}
+    type="radio"
+    value={{@value}}
+  />
+
+  {{yield (hash
+    label=(component "form/templates/select/small-cards/option/label" id=(call (fn @ref "label")))
+  )}}
+</label>

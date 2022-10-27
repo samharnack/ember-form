@@ -1,0 +1,11 @@
+<@template
+  @ref={{fn @ref @value}}
+  @id={{call (fn @ref @value)}}
+  @name={{@name}}
+  @set={{fn @set @value}}
+  @setEvent={{fn @setEvent @value}}
+  @checked={{eq (call @get) @value}}
+  @disabled={{@disabled}}
+as |option|>
+  {{yield option}}
+</@template>

@@ -1,0 +1,18 @@
+{{#each @items as |item index|}}
+  {{yield
+    (hash
+      remove=(component
+        "form/button"
+        type="button"
+        onclick=(fn @removeItem item)
+      )
+      property=(component "form/property"
+        get=(fn @get item)
+        id=(call @ref index)
+        ref=(fn @ref index)
+        set=(fn @set item)
+      )
+    )
+    index
+  }}
+{{/each}}

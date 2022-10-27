@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+  client:
+    build:
+      args:
+        BROWSERLESS_TAG: ${BROWSERLESS_TAG:-latest}
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 4200:4200
+      - 4201:4201
+    restart: unless-stopped
+    stdin_open: true
+    tmpfs: /src/tmp
+    tty: true
+    volumes:
+      - type: bind
+        source: .
+        target: /src
+      - /src/node_modules

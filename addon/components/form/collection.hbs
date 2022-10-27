@@ -1,0 +1,27 @@
+{{#let (hash
+  get=(fn this.getItems @get @name)
+  items=(call (fn this.getItems @get @name))
+  ref=(fn @ref @name)
+  set=(fn @set @name)
+) as |collection|}}
+  {{yield
+    (hash
+      addButton=(component
+        "form/button"
+        disabled=@disabled
+        onclick=(fn this.addItem collection.set collection.items)
+        setDisabled=(fn @setDisabled (eq collection.items.length @limit))
+        type="button"
+      )
+      items=(component
+        "form/collection/items"
+        items=collection.items
+        ref=collection.ref
+        removeItem=(fn this.removeItem collection.set collection.items)
+        set=(fn collection.set collection.items)
+        get=collection.get
+      )
+    )
+    collection.items.length
+  }}
+{{/let}}

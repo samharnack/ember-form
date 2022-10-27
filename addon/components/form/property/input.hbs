@@ -1,0 +1,10 @@
+<Form::Templates @name="property/input" @component={{@component}} as |Input|>
+  <Input
+    {{on "change" @set}}
+    id={{@id}}
+    name={{@name}}
+    type={{@type}}
+    value={{call @get}}
+    ...attributes
+  />
+</Form::Templates>

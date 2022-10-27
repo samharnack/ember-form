@@ -1,0 +1,23 @@
+  <div class="relative flex items-start">
+    <div class="flex items-center h-5">
+      <input
+        {{on "change" @setEvent}}
+        id={{@id}}
+        aria-describedby={{concat @id "-description"}}
+        name={{@name}}
+        type="radio"
+        checked={{@checked}}
+        class="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+      />
+    </div>
+    <div class="ml-3 text-sm">
+      {{yield (hash
+        label=(component "form/templates/select/list-with-description/option/label"
+          id=@id
+        )
+        description=(component "form/templates/select/list-with-description/option/description"
+          id=(concat @id "-description")
+        )
+      )}}      
+    </div>
+  </div>

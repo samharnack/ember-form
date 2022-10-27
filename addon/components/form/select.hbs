@@ -1,0 +1,14 @@
+<Form::Templates @name={{or @template "select/simple-list"}} @component={{@component}} as |Select|>
+  <Select ...attributes as |optionComponent|>
+    {{yield (component
+      "form/select/option"
+      disabled=@disabled
+      get=(fn @get @name)
+      name=@name
+      ref=(fn @ref @name)
+      setEvent=(fn this.setEvent @set @name)
+      set=(fn @set @name)
+      template=optionComponent
+    )}}
+  </Select>
+</Form::Templates>

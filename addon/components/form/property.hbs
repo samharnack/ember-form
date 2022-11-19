@@ -1,19 +1,19 @@
 <div ...attributes>
   {{#let (hash
-    id=(call @ref @name)
+    ref=(fn @ref @name)
     set=(fn this.setEvent @set @name)
     get=(fn @get @name)
   ) as |property|}}
     {{yield (hash
-      id=property.id
+      id=(call property.ref)
       label=(component
         "form/property/label"
-        for=property.id
+        for=(call property.ref)
         name=@name
       )
       input=(component
         "form/property/input"
-        id=property.id
+        id=(call property.ref)
         name=@name
         set=property.set
         get=property.get
@@ -21,7 +21,7 @@
       )
       description=(component
         "form/property/description"
-        for=property.id
+        for=(call property.ref)
       )
       name=@name
       set=property.set

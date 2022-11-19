@@ -20,7 +20,12 @@ export default class FormComponent extends Component {
   }
 
   @action ref(...paths) {
-    return guidFor(paths.join('.'));
+    const key = paths.join('.');
+    const guid = guidFor(key);
+    
+    // console.log('ref', { paths, key, guid });
+
+    return guid;
   }
 
   @action set(setter, ...args) {

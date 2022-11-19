@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 
 export default class FormCollectionComponent extends Component {
 
-  @action getItems(getter, property, ...args) {
+  @action get(getter, property, ...args) {
     if (args.length === 0) {
       const items = getter(property);
       
@@ -17,16 +17,16 @@ export default class FormCollectionComponent extends Component {
     return getter(property, ...args);
   }
 
-  @action addItem(set, data) {
-    if (data instanceof Array) {
-      data = [{}, ...data];
-      return set(data);
+  @action add(set, items, data = {}) {
+    if (items instanceof Array) {
+      items = [data, ...items];
+      return set(items);
     }
 
-    return set([{}]);
+    return set([data]);
   }
 
-  @action removeItem(set, data, item) {
+  @action remove(set, data, item) {
     set(data.filter(listItem => listItem !== item));
-  }  
+  }
 }

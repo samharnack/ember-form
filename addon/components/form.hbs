@@ -1,52 +1,42 @@
-{{#let (hash
-  property=(component
-    "form/property"
-    ref=(fn this.ref this.element)
-    set=(fn this.set @set)
-    get=(fn this.get @get)
-    setDisabled=(fn this.setState "disabled" this.processing)
-  )
-  button=(component
-    "form/button"
-    type="submit"
-    disabled=(call (fn this.getState "disabled"))    
-  )
-  set=(fn this.set @set)
-  get=(fn this.get @get)
-) as |base|}}
+<form
+  {{did-insert this.setElement @set @get @submit}}
+  {{on "submit" (fn this.submit @submit)}}
+  ...attributes
+>
+  {{#let (hash set=(fn this.set @set) get=(fn this.get @get) ref=this.ref) as |base|}}
+  {{#let (component "form/property" ref=base.ref set=base.set get=base.get) as |property|}}
+  {{#let (component "form/button" type="submit" base=base disabled=(call (fn this.getState "disabled"))) as |button|}}
 
-  <form
-    {{did-insert this.setElement}}
-    {{on "submit" (fn this.submit @submit)}}
-    ...attributes
-  >
     {{yield
       this.states.disabled
       this.error
       (hash
-        button=base.button
+        ref=base.ref
+        get=base.get
+        set=base.set
+        button=button
+        property=property
         collection=(component
           "form/collection"
-          property=base.property
-          ref=(fn this.ref this.element)
+          property=property
+          ref=base.ref
           set=base.set
           get=base.get
           disabled=this.states.disabled
           setDisabled=(fn this.setState "disabled" this.processing)
         )
-        get=base.get
-        property=base.property
-        ref=(fn this.ref this.element)
         select=(component
           "form/select"
-          ref=(fn this.ref this.element)
+          ref=base.ref
           set=base.set
           get=base.get
           disabled=this.states.disabled
           setDisabled=(fn this.setState "disabled" this.processing)
         )
-        set=base.set
       )
     }}
-  </form>
-{{/let}}
+
+  {{/let}}
+  {{/let}}
+  {{/let}}
+</form>

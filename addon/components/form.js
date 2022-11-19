@@ -24,12 +24,19 @@ export default class FormComponent extends Component {
     this.element = element;
   }
 
-  @action ref(element, ...paths) {
+  @action ref(...paths) {
+    const { element } = this;
     const namespace = guidFor(element);
     const key = [namespace, ...paths].join('.');
     const guid = guidFor(key);
     
-    // console.log('ref', { paths, key, guid });
+    // console.log('ref', {
+    //   element,
+    //   namespace,
+    //   paths,
+    //   key,
+    //   guid,
+    // });
 
     return guid;
   }

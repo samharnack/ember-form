@@ -111,6 +111,8 @@ module('Integration | Component | form', function (hooks) {
       return { ...acc, [id]: id };
     }, {});
     
+    // await this.pauseTest();
+
     assert.equal(elements.length, 4);
     assert.equal(Object.entries(uniqueIds).length, elements.length);
   });

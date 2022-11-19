@@ -21,7 +21,7 @@ export default class FormComponent extends Component {
   }
 
   @action setElement(element) {
-    this.element = guidFor(element);
+    this.element = element;
   }
 
   @action ref(element, ...paths) {

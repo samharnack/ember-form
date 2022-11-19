@@ -5,6 +5,7 @@ import { set, get } from '@ember/object';
 import { guidFor } from '@ember/object/internals';
 
 export default class FormComponent extends Component {
+  @tracked element = null;
   @tracked processing = false;
   @tracked error = null;
   @tracked disabled = false;
@@ -19,8 +20,13 @@ export default class FormComponent extends Component {
     return get(this, state);
   }
 
-  @action ref(...paths) {
-    const key = paths.join('.');
+  @action setElement(element) {
+    this.element = guidFor(element);
+  }
+
+  @action ref(element, ...paths) {
+    const namespace = guidFor(element);
+    const key = [namespace, ...paths].join('.');
     const guid = guidFor(key);
     
     // console.log('ref', { paths, key, guid });

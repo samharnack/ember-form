@@ -80,7 +80,6 @@ module('Integration | Component | form', function (hooks) {
   test('it creates unique field ids', async function (assert) {
     await render(hbs`
       <Form as |processing error form|>
-
         <form.property @name="field1" as |property|>
           <property.label />
           <property.input />
@@ -90,7 +89,18 @@ module('Integration | Component | form', function (hooks) {
           <property.label />
           <property.input />
         </form.property>
+      </Form>
 
+      <Form as |processing error form|>
+        <form.property @name="field1" as |property|>
+          <property.label />
+          <property.input />
+        </form.property>
+
+        <form.property @name="field2" as |property|>
+          <property.label />
+          <property.input />
+        </form.property>
       </Form>
     `);
 
@@ -101,7 +111,7 @@ module('Integration | Component | form', function (hooks) {
       return { ...acc, [id]: id };
     }, {});
     
-    assert.equal(elements.length, 2);
+    assert.equal(elements.length, 4);
     assert.equal(Object.entries(uniqueIds).length, elements.length);
   });
 

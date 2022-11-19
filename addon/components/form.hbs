@@ -1,7 +1,7 @@
 {{#let (hash
   property=(component
     "form/property"
-    ref=this.ref
+    ref=(fn this.ref this.element)
     set=(fn this.set @set)
     get=(fn this.get @get)
     setDisabled=(fn this.setState "disabled" this.processing)
@@ -15,7 +15,11 @@
   get=(fn this.get @get)
 ) as |base|}}
 
-  <form {{on "submit" (fn this.submit @submit)}} ...attributes>
+  <form
+    {{did-insert this.setElement}}
+    {{on "submit" (fn this.submit @submit)}}
+    ...attributes
+  >
     {{yield
       this.states.disabled
       this.error
@@ -24,7 +28,7 @@
         collection=(component
           "form/collection"
           property=base.property
-          ref=this.ref
+          ref=(fn this.ref this.element)
           set=base.set
           get=base.get
           disabled=this.states.disabled
@@ -32,10 +36,10 @@
         )
         get=base.get
         property=base.property
-        ref=this.ref
+        ref=(fn this.ref this.element)
         select=(component
           "form/select"
-          ref=this.ref
+          ref=(fn this.ref this.element)
           set=base.set
           get=base.get
           disabled=this.states.disabled

@@ -81,11 +81,13 @@ module('Integration | Component | form', function (hooks) {
     await render(hbs`
       <Form as |processing error form|>
         <form.property @name="field1" as |property|>
+          <div id={{call property.ref}}></div>
           <property.label />
           <property.input />
         </form.property>
 
         <form.property @name="field2" as |property|>
+          <div id={{call property.ref}}></div>
           <property.label />
           <property.input />
         </form.property>
@@ -93,11 +95,13 @@ module('Integration | Component | form', function (hooks) {
 
       <Form as |processing error form|>
         <form.property @name="field1" as |property|>
+          <div id={{call property.ref}}></div>
           <property.label />
           <property.input />
         </form.property>
 
         <form.property @name="field2" as |property|>
+          <div id={{call property.ref}}></div>
           <property.label />
           <property.input />
         </form.property>
@@ -114,8 +118,10 @@ module('Integration | Component | form', function (hooks) {
     // console.log({ elements });
 
     assert.dom('form[id]').exists({ count: 2 });
-    assert.equal(elements.length, 6);
-    assert.equal(Object.entries(uniqueIds).length, elements.length);
+    assert.dom('input[id]').exists({ count: 4 });
+    assert.equal(elements.length, 10);
+    
+    assert.equal(Object.entries(uniqueIds).length, 6);
   });
 
 });

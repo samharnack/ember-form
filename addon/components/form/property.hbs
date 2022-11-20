@@ -5,7 +5,7 @@
     get=(fn @get @name)
   ) as |property|}}
     {{yield (hash
-      id=(call (fn @ref @name))
+      ref=(fn @ref @name)
       label=(component
         "form/property/label"
         for=(fn @ref @name)

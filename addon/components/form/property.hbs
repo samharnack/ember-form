@@ -8,7 +8,7 @@
       ref=(fn @ref @name)
       label=(component
         "form/property/label"
-        for=(fn @ref @name)
+        ref=(fn @ref @name)
         name=@name
       )
       input=(component
@@ -21,7 +21,7 @@
       )
       description=(component
         "form/property/description"
-        for=(call (fn @ref @name))
+        ref=(fn @ref @name)
       )
       name=@name
       set=property.set

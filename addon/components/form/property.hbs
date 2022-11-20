@@ -5,15 +5,15 @@
     get=(fn @get @name)
   ) as |property|}}
     {{yield (hash
-      id=(call property.ref)
+      id=(call (fn @ref @name))
       label=(component
         "form/property/label"
-        for=(call property.ref)
+        for=(fn @ref @name)
         name=@name
       )
       input=(component
         "form/property/input"
-        id=(call property.ref)
+        ref=(fn @ref @name)
         name=@name
         set=property.set
         get=property.get
@@ -21,7 +21,7 @@
       )
       description=(component
         "form/property/description"
-        for=(call property.ref)
+        for=(call (fn @ref @name))
       )
       name=@name
       set=property.set

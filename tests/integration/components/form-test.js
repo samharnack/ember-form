@@ -110,10 +110,11 @@ module('Integration | Component | form', function (hooks) {
 
       return { ...acc, [id]: id };
     }, {});
-    
-    // await this.pauseTest();
 
-    assert.equal(elements.length, 4);
+    // console.log({ elements });
+
+    assert.dom('form[id]').exists({ count: 2 });
+    assert.equal(elements.length, 6);
     assert.equal(Object.entries(uniqueIds).length, elements.length);
   });
 

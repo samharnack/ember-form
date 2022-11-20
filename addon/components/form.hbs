@@ -1,42 +1,45 @@
-<form
-  {{did-insert this.setElement @set @get @submit}}
-  {{on "submit" (fn this.submit @submit)}}
-  ...attributes
->
-  {{#let (hash set=(fn this.set @set) get=(fn this.get @get) ref=this.ref) as |base|}}
-  {{#let (component "form/property" ref=base.ref set=base.set get=base.get) as |property|}}
-  {{#let (component "form/button" type="submit" base=base disabled=(call (fn this.getState "disabled"))) as |button|}}
+{{#let (call this.ref this.element) as |id|}}
+  <form
+    {{did-insert this.setElement @set @get @submit}}
+    {{on "submit" (fn this.submit @submit)}}
+    id={{id}}
+    ...attributes
+  >
+    {{#let (hash set=(fn this.set @set) get=(fn this.get @get) ref=(fn this.ref id)) as |base|}}
+    {{#let (component "form/property" ref=base.ref set=base.set get=base.get) as |property|}}
+    {{#let (component "form/button" type="submit" base=base disabled=(call (fn this.getState "disabled"))) as |button|}}
 
-    {{yield
-      this.states.disabled
-      this.error
-      (hash
-        ref=base.ref
-        get=base.get
-        set=base.set
-        button=button
-        property=property
-        collection=(component
-          "form/collection"
+      {{yield
+        this.states.disabled
+        this.error
+        (hash
+          ref=base.ref
+          get=base.get
+          set=base.set
+          button=button
           property=property
-          ref=base.ref
-          set=base.set
-          get=base.get
-          disabled=this.states.disabled
-          setDisabled=(fn this.setState "disabled" this.processing)
+          collection=(component
+            "form/collection"
+            property=property
+            ref=base.ref
+            set=base.set
+            get=base.get
+            disabled=this.states.disabled
+            setDisabled=(fn this.setState "disabled" this.processing)
+          )
+          select=(component
+            "form/select"
+            ref=base.ref
+            set=base.set
+            get=base.get
+            disabled=this.states.disabled
+            setDisabled=(fn this.setState "disabled" this.processing)
+          )
         )
-        select=(component
-          "form/select"
-          ref=base.ref
-          set=base.set
-          get=base.get
-          disabled=this.states.disabled
-          setDisabled=(fn this.setState "disabled" this.processing)
-        )
-      )
-    }}
+      }}
 
-  {{/let}}
-  {{/let}}
-  {{/let}}
-</form>
+    {{/let}}
+    {{/let}}
+    {{/let}}
+  </form>
+{{/let}}

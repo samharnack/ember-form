@@ -29,4 +29,8 @@ export default class FormCollectionComponent extends Component {
   @action remove(set, data, item) {
     set(data.filter(listItem => listItem !== item));
   }
+
+  get limit() {
+    return this.args.limit || 0;
+  }
 }

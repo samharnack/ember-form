@@ -5,7 +5,7 @@
   set=(fn @set @name)
 ) as |collection|}}
   {{yield
-    (if (lt collection.items.length @limit) (fn this.add collection.set collection.items))  
+    (if (or (eq 0 this.limit) (lt collection.items.length this.limit)) (fn this.add collection.set collection.items))  
     (hash
       items=(component
         "form/collection/items"

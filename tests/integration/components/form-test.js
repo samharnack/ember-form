@@ -31,7 +31,48 @@ module('Integration | Component | form', function (hooks) {
     assert.dom(this.element).hasText('Username');
   });
 
-  test('collections', async function (assert) {
+  test('collections with `limit`', async function (assert) {
+    this.setter = (data, property, value) => set(data, property, value);
+    this.getter = (data, property) => get(data, property);
+    this.data = {};
+    this.default = {'item:1': 'works'};
+
+    await render(hbs`
+      <Form @set={{fn this.setter this.data}} @get={{fn this.getter this.data}} as |processing error form|>
+
+        <form.collection @name="c" as |add collection|>
+
+          {{#if add}}
+            <button
+              {{on "click" (fn add this.default)}}
+              data-test="add"
+            >
+            </button>
+          {{/if}}
+
+          <collection.items as |remove item index|>
+            <button
+              {{on "click" remove}}
+              data-test-remove={{index}}
+            >
+            </button>
+
+            <item.property @name={{concat "item:" index}} as |property|>
+              <property.label>Item {{index}}</property.label>
+              <property.input />
+            </item.property>
+          </collection.items>
+
+        </form.collection>
+
+      </Form>
+    `);
+
+    await click('[data-test="add"]');
+    assert.dom('[data-test="add"]').exists();
+  });
+
+  test('collections with `limit`', async function (assert) {
     this.setter = (data, property, value) => set(data, property, value);
     this.getter = (data, property) => get(data, property);
     this.data = {};
